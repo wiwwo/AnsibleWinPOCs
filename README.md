@@ -45,7 +45,33 @@ Command Prompt
   netsh advfirewall set allprofiles state on
 ```
 
+Funny firewall error might be fixed by:
+```
+PS C:\Windows\system32>
+$nlm = [Activator]::CreateInstance([Type]::GetTypeFromCLSID([Guid]"{DCB00C01-570F-4A9B-8D69-199FDBA5723B}"))
+$connections = $nlm.getnetworkconnections()
+$connections |foreach {
+ if ($_.getnetwork().getcategory() -eq 0)
+ {
+    $_.getnetwork().setcategory(1)
+ }
+}
 
+PS C:\Windows\system32> winRM quickconfig
+```
+
+Various:
+```
+winrm get winrm/config/service
+```
+
+Study those:
+```
+PS C:\Windows\system32> Enable-PSRemoting
+
+
+PS C:\Windows\system32> Disable-PSRemoting
+```
 ----------------------------------
 TO-READ:
 
