@@ -1,0 +1,9 @@
+---
+- hosts: windows
+  tasks:
+    -
+      name: exeute getInstalled powershell
+      script: getInstalled.ps1 universe
+      register: out
+
+    - debug: var=out.stdout_lines
