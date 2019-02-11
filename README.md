@@ -10,6 +10,8 @@ On windows CMD (Admin):
 @powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://github.com/ansible/ansible/raw/devel/examples/scripts/ConfigureRemotingForAnsible.ps1'))"
 ```
 
+Play and plug!
+
 ```
 ansible windows -i hostsFile -m win_ping -vvv
 ansible windows -i hostsFile -m setup
@@ -21,6 +23,8 @@ ansible windows -i hostsFile -m win_say -a "msg='Hi! This is a demo' start_sound
 ansible-playbook  -i hostsFile playbooks/playbook-install-7zip.yml
 
 ansible-playbook  -i hostsFile  playbooks/run_hello.ps1.yml
+
+ansible-playbook  -i hostsFile  playbooks/run_getInstalled.ps1.yml
 
 ansible-playbook -i hostsFile playbooks/upgradeWin.yml
 
