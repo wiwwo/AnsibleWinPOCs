@@ -456,3 +456,6 @@ Else
     Throw "Unable to establish an HTTP or HTTPS remoting session."
 }
 Write-VerboseLog "MIMMO PS Remoting has been successfully configured for Ansible."
+
+Write-VerboseLog "MIMMO PS Removing HTTP listeners."
+Get-ChildItem -Path WSMan:\localhost\Listener | Where-Object { $_.Keys -contains "Transport=HTTP" } | Remove-Item -Recurse -Force
