@@ -1,13 +1,19 @@
 https://medium.com/the-sysadmin/managing-windows-machines-with-ansible-60395445069f
 
+PRE:
 ```
-pip install pywinrm requests-ntlm requests-kerberos requests-credssp
 pip install pywinrm requests-ntlm requests-kerberos requests-credssp
 ```
 
 On windows CMD (Admin):
 ```
-@powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://github.com/ansible/ansible/raw/devel/examples/scripts/ConfigureRemotingForAnsible.ps1'))"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://github.com/ansible/ansible/raw/devel/examples/scripts/ConfigureRemotingForAnsible.ps1'))"
+
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('file:///Cosimo/myConfigureRemotingForAnsible.ps1'))"
+
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('file:///Cosimo/myStopWinRM.ps1'))"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('file:///Cosimo/myStartWinRM.ps1'))"
+
 ```
 
 Play and plug!
@@ -63,6 +69,9 @@ PS C:\Windows\system32> winRM quickconfig
 Various:
 ```
 winrm get winrm/config/service
+
+winrm set winrm/config/Service/auth @{Basic="true"}
+
 ```
 
 Study those:
