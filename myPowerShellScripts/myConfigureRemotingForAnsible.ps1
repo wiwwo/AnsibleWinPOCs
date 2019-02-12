@@ -70,6 +70,7 @@ Function Write-Log
 {
     $Message = $args[0]
     Write-EventLog -LogName Application -Source $EventSource -EntryType Information -EventId 1 -Message $Message
+    Write-Host $Message
 }
 
 Function Write-VerboseLog
@@ -77,6 +78,7 @@ Function Write-VerboseLog
     $Message = $args[0]
     Write-Verbose $Message
     Write-Log $Message
+    Write-Host $Message
 }
 
 Function Write-HostLog
@@ -84,6 +86,7 @@ Function Write-HostLog
     $Message = $args[0]
     Write-Output $Message
     Write-Log $Message
+    Write-Host $Message
 }
 
 Function New-LegacySelfSignedCert
