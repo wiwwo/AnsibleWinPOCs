@@ -35,20 +35,28 @@ ansible-playbook  -i hostsFile  playbooks/run_getInstalled.ps1.yml
 ansible-playbook -i hostsFile playbooks/upgradeWin.yml
 
 # ansible windows -i hostsFile -m win_reboot
+
+# ansible windows -i hostsFile -m  win_command -a "powershell -NoProfile -ExecutionPolicy Bypass -Command \"iex ((new-object net.webclient).DownloadString('file:///Cosimo/myStopWinRM.ps1'))\""
+
 ```
 
 ----------------------------
 Firewall Using PowerShell
 PowerShell:
 ```
-  Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
-  Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+```
+Remove non HTTPS listeners, DO IT!
+```
+Get-ChildItem -Path WSMan:\localhost\Listener | Where-Object { $_.Keys -contains "Transport=HTTP" } | Remove-Item -Recurse -Force
+
 ```
 
 Command Prompt
 ```
-  netsh advfirewall set allprofiles state off
-  netsh advfirewall set allprofiles state on
+netsh advfirewall set allprofiles state off
+netsh advfirewall set allprofiles state on
 ```
 
 Funny firewall error might be fixed by:
@@ -72,6 +80,8 @@ winrm get winrm/config/service
 
 winrm set winrm/config/Service/auth @{Basic="true"}
 
+winrm enumerate winrm/config/Listener
+
 ```
 
 Study those:
@@ -83,6 +93,12 @@ PS C:\Windows\system32> Disable-PSRemoting
 ```
 ----------------------------------
 TO-READ:
+
+https://docs.ansible.com/ansible/latest/user_guide/windows_setup.html#winrm-setup
+
+!!! https://superuser.com/questions/1156138/allow-powershell-remote-access-only-from-one-address
+
+!!! http://www.grouppolicy.biz/2014/05/enable-winrm-via-group-policy/
 
 https://fabianlee.org/2017/06/05/ansible-managing-a-windows-host-using-ansible/
 
