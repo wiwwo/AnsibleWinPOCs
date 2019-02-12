@@ -328,7 +328,7 @@ If (!($listeners | Where {$_.Keys -like "TRANSPORT=HTTPS"}))
 
     $selectorset = @{
         Transport = "HTTPS"
-        Address = "*"
+        Address = "192.168.2.104"
     }
 
     Write-Verbose "MIMMO Enabling SSL listener."
