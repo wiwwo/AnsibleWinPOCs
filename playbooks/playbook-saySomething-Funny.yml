@@ -1,0 +1,13 @@
+---
+- name: Funny
+  hosts: windows
+  tasks:
+    - name: Say something
+      win_say:
+        start_sound_path: C:\Windows\Media\ding.wav
+        msg: Warning, deployment commencing in 5 minutes, please log out.
+        voice: Microsoft Hazel Desktop
+    - name: Write something
+      win_msg:
+          display_seconds: 6
+          msg: The end of the world is near
