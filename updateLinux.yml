@@ -1,0 +1,23 @@
+- hosts: phpsm
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+   - name: updates a server
+     apt: update_cache=yes
+   - name: upgrade a server
+     apt: 
+        upgrade: dist
+        update_cache: yes
+        autoremove: yes
+        autoclean: yes
+     register: shell_result
+   - name: check disk space
+     command: "df -h"
+     register: shell_result2
+
+   - name: Show APT output
+     debug: var=shell_result.stdout_lines
+#     - name: Show DF output
+#     debug: var=shell_result2.stdout_lines
